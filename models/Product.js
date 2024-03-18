@@ -18,7 +18,8 @@ const ProductSchema = new mongoose.Schema({
     gnc: { type: Boolean },
     patente: { type: String, required: true },
     nombre: { type: String, required: true },
-    imagenes: [{ type: String }]
+    imagenes: [{ type: String }],
+    fechaCarga: { type: Date, default: Date.now } 
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

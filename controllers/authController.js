@@ -156,17 +156,22 @@ exports.updateUser = async (req, res) => {
     try {
         const { id } = req.params;
         const { first_name, last_name, email, password } = req.body;
-
+        password = req.body.email.password;
         let user = await User.findById(id);
         console.log(user)
         if (!user) {
             return res.status(404).json({ msg: 'Usuario no encontrado' });
         }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        
         user.first_name = req.body.email.first_name;
         user.last_name = req.body.email.last_name;
         user.email = req.body.email.email;
-        user.password = req.body.email.password;
-
+        user.password = hashedPassword;
+      
+        
         await user.save();
         res.json({ msg: 'Usuario actualizado exitosamente', user });
     } catch (err) {
