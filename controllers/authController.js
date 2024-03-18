@@ -2,7 +2,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const config = require('../config');
+const config = require('../config/config');
 const sendRecoverEmail = require('../services/email.service');
 const crypto = require('crypto');
 

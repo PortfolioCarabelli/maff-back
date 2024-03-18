@@ -2,13 +2,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const config = require('./config');
-
+const config = require('./config/config');
 const app = express();
+
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 // Conexión a MongoDB
 mongoose.connect(config.mongoURI, {
@@ -20,6 +20,7 @@ mongoose.connect(config.mongoURI, {
 // Definir rutas
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/productRoutes'));
+
 // Puerto del servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));

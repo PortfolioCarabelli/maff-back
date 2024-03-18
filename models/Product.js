@@ -18,6 +18,7 @@ const ProductSchema = new mongoose.Schema({
     gnc: { type: Boolean },
     patente: { type: String, required: true },
     nombre: { type: String, required: true },
+    imagenes: [{ type: String }]
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

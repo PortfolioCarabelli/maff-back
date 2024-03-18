@@ -1,6 +1,6 @@
 // services/email.service.js
 const nodemailer = require('nodemailer');
-const config = require('../config');
+const config = require('../config/config');
 
 const sendRecoverEmail = async (email, recoverToken) => {
     // Configurar el transportador de correo electrónico (usa tu proveedor de correo electrónico o servicio SMTP)
