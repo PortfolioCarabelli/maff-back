@@ -155,7 +155,7 @@ exports.createUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { first_name, last_name, email, password } = req.body;
+
         password = req.body.email.password;
         let user = await User.findById(id);
         console.log(user)
@@ -175,7 +175,7 @@ exports.updateUser = async (req, res) => {
         await user.save();
         res.json({ msg: 'Usuario actualizado exitosamente', user });
     } catch (err) {
-        console.error(err.message);
+        console.error('este es el error: ' + err.message);
         res.status(500).send('Error del servidor');
     }
 };
