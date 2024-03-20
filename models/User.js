@@ -19,6 +19,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    recoverToken: {
+        type: String,
+        default: null 
+    },
     date: {
         type: Date,
         default: Date.now

@@ -19,7 +19,9 @@ const ProductSchema = new mongoose.Schema({
     patente: { type: String, required: true },
     nombre: { type: String, required: true },
     imagenes: [{ type: String }],
-    fechaCarga: { type: Date, default: Date.now } 
+    fechaCarga: { type: Date, default: Date.now },
+    productoDestacado: { type: Boolean, default: false },
+    productoActivo: { type: Boolean, default: true }
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

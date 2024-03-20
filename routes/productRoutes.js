@@ -49,7 +49,36 @@ router.post('/', upload.fields([{ name: 'image'}]), async (req, res) => {
     }
 });
 
-router.put('/:id', productController.updateProduct);
+// Ruta para actualizar un producto existente
+router.put('/:id', upload.fields([{ name: 'image'}]), async (req, res) => {
+    const productId = req.params.id;
+    const body = req.body;
+    const images = req.files.image;
+
+    try {
+        // Verificar si se proporcionaron imágenes
+        if (images && images.length > 0) {
+            const downloadURLs = [];
+            for (const image of images) {
+                const { downloadURL } = await uploadFile(image);
+                downloadURLs.push(downloadURL);
+            }
+            body.imagenes = downloadURLs;
+        }
+
+        // Actualizar el producto en la base de datos
+        const updatedProduct = await Product.findByIdAndUpdate(productId, body, { new: true });
+        if (!updatedProduct) {
+            return res.status(404).json({ message: "Producto no encontrado" });
+        }
+
+        // Enviar la respuesta con el producto actualizado
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
 router.delete('/:id', productController.deleteProduct);
 
 module.exports = router;

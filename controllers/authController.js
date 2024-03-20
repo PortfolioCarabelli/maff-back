@@ -66,6 +66,7 @@ exports.login = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
+        console.log(req.body)
         const user = await User.findOne({ email });
 
         if (!user) {
@@ -92,6 +93,7 @@ exports.forgotPassword = async (req, res) => {
 exports.resetPassword = async (req, res) => {
     try {
         const { token, newPassword } = req.body;
+        console.log(req.body)
         const user = await User.findOne({ recoverToken: token });
 
         if (!user) {
