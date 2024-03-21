@@ -35,7 +35,6 @@ exports.register = async (req, res) => {
     }
 };
 
-// Función de inicio de sesión
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -47,6 +46,7 @@ exports.login = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ msg: 'Credenciales inválidas' });
         }
+        const fullName = user.first_name + ' ' + user.last_name; // Concatenar el nombre completo
         const payload = {
             user: {
                 id: user.id
@@ -54,7 +54,7 @@ exports.login = async (req, res) => {
         };
         jwt.sign(payload, config.jwtSecret, { expiresIn: 3600 }, (err, token) => {
             if (err) throw err;
-            res.json({ token });
+            res.json({ token, fullName }); // Devolver el token y el nombre completo como respuesta
         });
     } catch (err) {
         console.error(err.message);
