@@ -7,6 +7,7 @@ const upload = require('../config/upload');
 const uploadFile = require('../util/uploadFile');
 
 router.get('/', productController.getAllProducts);
+router.get('/:id', productController.getProductById);
 router.post('/', upload.fields([{ name: 'image'}]), async (req, res) => {
     const body = req.body;
     const images = req.files.image;
